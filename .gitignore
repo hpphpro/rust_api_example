@@ -10,3 +10,4 @@ Cargo.lock
 
 rust-project.json
 .env
+.DS_Store
