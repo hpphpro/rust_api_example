@@ -128,7 +128,7 @@ pub async fn get_user_by_id_endpoint(
     State(state): State<Arc<AppState>>, 
     Path(user_id): Path<Uuid>
 ) -> impl IntoResponse {
-    match get_user(state.connection.clone(), user_id).await {
+    match get_user(&state.connection, user_id).await {
         Ok(user) => (StatusCode::OK, Json(user)).into_response(),
         Err(error) => error.into_response()
     }

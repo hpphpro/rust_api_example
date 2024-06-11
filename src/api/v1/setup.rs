@@ -7,7 +7,7 @@ use crate::{
         dependencies::setup_dependencies, 
         endpoints::{
             auth::{
-                login_endpoint, logout_endpoint
+                login_endpoint, logout_endpoint, refresh_endpoint
             }, 
         healthcheck::healthcheck_endpoint, 
         user::{
@@ -40,6 +40,7 @@ pub async fn create_v1_router(config: Config) -> Router {
        .route("/users", delete(delete_user_endpoint).route_layer(auth_middleware.clone()))
        .route("/users/me", get(get_me_endpoint).route_layer(auth_middleware.clone()))
        .route("/auth/login", post(login_endpoint))
+       .route("/auth/refresh", post(refresh_endpoint))
        .route("/auth/logout", post(logout_endpoint).route_layer(auth_middleware.clone()))
        .with_state(state);
 

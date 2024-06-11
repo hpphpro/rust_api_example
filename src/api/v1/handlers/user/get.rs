@@ -1,5 +1,3 @@
-use std::sync::Arc;
-
 use sea_orm::DatabaseConnection;
 use uuid::Uuid;
 
@@ -8,8 +6,8 @@ use crate::common::{error::AppError, structs::responses::user::User};
 use crate::services::gateway::get_gateway;
 
 
-pub async fn get_user(connection: Arc<DatabaseConnection>, user_id: Uuid) -> Result<User, AppError> {
-    let gw = get_gateway(&*connection);
+pub async fn get_user(connection: &DatabaseConnection, user_id: Uuid) -> Result<User, AppError> {
+    let gw = get_gateway(connection);
 
     let service = gw.user();
 

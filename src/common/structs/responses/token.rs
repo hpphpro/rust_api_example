@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use utoipa::ToSchema;
 
 
-#[derive(Debug, Serialize, Deserialize, Clone, ToSchema)]
+#[derive(Debug, PartialEq, Serialize, Deserialize, Clone, ToSchema)]
 pub enum TokenType {
     ACCESS,
     REFRESH

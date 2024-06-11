@@ -16,6 +16,7 @@ use crate::api::v1::endpoints::user::{
 use crate::api::v1::endpoints::auth::{
     __path_login_endpoint,
     __path_logout_endpoint,
+    __path_refresh_endpoint,
 };
 use crate::common::structs::requests::user::{CreateUser, DeleteUser, LoginUser, UpdateUser};
 use crate::common::structs::responses::healthcheck::HealthCheck;
@@ -59,6 +60,7 @@ impl Modify for SecurityAddon {
         healthcheck_endpoint, 
         login_endpoint,
         logout_endpoint,
+        refresh_endpoint,
         create_user_endpoint,
         get_me_endpoint,
         get_many_users_endpoint,

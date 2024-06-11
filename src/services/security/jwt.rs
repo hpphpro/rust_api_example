@@ -99,6 +99,7 @@ impl JWT {
     }
 
     pub fn verify_token(&self, token: String) -> Result<TokenClaims, AppError> {
+        let now = chrono::Utc::now();
 
         let data = decode::<TokenClaims>(
             &token, 
@@ -112,6 +113,15 @@ impl JWT {
                     details: None
                 }
         )})?;
+        
+        if data.claims.exp < (now.timestamp() as usize) {
+            return Err(AppError::UnAuthorizedError(
+                AppErrorMessage {
+                    message: "Token expired. Try to login again".into(),
+                    details: None
+                }
+            ));
+        }
 
         Ok(data.claims)
     }

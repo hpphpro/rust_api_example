@@ -9,11 +9,19 @@ use crate::common::structs::responses::user::User;
 
 
 
-pub async fn create_user(connection: &DatabaseConnection, data: CreateUser, hasher: &Argon2Hasher) -> Result<User, AppError> {
+pub async fn create_user(
+    connection: &DatabaseConnection, 
+    data: CreateUser, 
+    hasher: &Argon2Hasher
+) -> Result<User, AppError> {
     let transaction = connection
         .begin()
         .await
-        .map_err(|_| AppError::BadRequestError(AppErrorMessage { message: "Failed to open transaction".into(), details: None }))?;
+        .map_err(|_| AppError::BadRequestError(
+            AppErrorMessage { 
+                message: "Failed to open transaction".into(), 
+                details: None 
+            }))?;
     let gateway = get_gateway(&transaction);
 
     let user = gateway.user().create(data, hasher).await;

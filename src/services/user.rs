@@ -28,7 +28,7 @@ where Conn: ConnectionTrait + Send + Sync
     pub fn new(repository: Arc<UserRepository<'a, Conn>>) -> Arc<Self> {
         let reader = repository.reader();
         let writer = repository.writer();
-        Arc::new(Self { reader: reader, writer: writer })
+        Arc::new(Self { reader, writer })
     }
 
     pub async fn create(&self, mut data: CreateUser, hasher: &Argon2Hasher) -> Result<User, AppError> {
@@ -148,7 +148,7 @@ where Conn: ConnectionTrait + Send + Sync
 
         let rows = self.writer.delete(DeleteUser { id }).await?;
 
-        Ok(Status { status: rows > 0})
+        Ok(Status { status: rows > 0 })
     }
 
 }

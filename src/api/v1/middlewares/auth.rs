@@ -12,6 +12,7 @@ use uuid::Uuid;
 
 use crate::api::v1::dependencies::AppState;
 use crate::common::error::{AppError, AppErrorMessage};
+use crate::common::structs::responses::token::TokenType;
 use crate::services::gateway::get_gateway;
 
 
@@ -23,7 +24,7 @@ pub async fn auth(
     next: Next
 ) -> Result<Response, AppError> {
     let token = cookie_jar
-        .get("token")
+        .get("access")
         .map(|cookie| cookie.value().to_string())
         .or_else(|| {
             request.headers()
@@ -48,6 +49,15 @@ pub async fn auth(
         )?;
     
     let claims = state.jwt.verify_token(token)?;
+
+    if claims._type != TokenType::ACCESS {
+        return Err(AppError::UnAuthorizedError(
+            AppErrorMessage {
+                message: "Invalid token".into(),
+                details: None
+            }
+        ));
+    }
 
     let user_id = Uuid::parse_str(&claims.sub)
         .map_err(|_| {
