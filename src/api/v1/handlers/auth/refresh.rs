@@ -12,7 +12,7 @@ use crate::{
     common::{
         error::{AppError, AppErrorMessage}, 
         structs::responses::token::TokenType
-}, 
+    }, 
     services::security::jwt::JWT
 };
 

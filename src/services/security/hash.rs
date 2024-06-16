@@ -1,7 +1,16 @@
 use std::sync::Arc;
 
 use argon2::{
-    password_hash::{rand_core::OsRng, SaltString}, Algorithm, Argon2, Params, PasswordHash, PasswordHasher, PasswordVerifier, Version
+    password_hash::{
+        rand_core::OsRng, SaltString
+    }, 
+    Algorithm, 
+    Argon2, 
+    Params, 
+    PasswordHash, 
+    PasswordHasher, 
+    PasswordVerifier, 
+    Version
 };
 
 use crate::common::error::{AppError, AppErrorMessage};

@@ -10,7 +10,6 @@ use crate::database::entity::user::Role;
 pub struct CreateUser {
     pub login: Box<str>,
     pub password: Box<str>,
-    pub confirm_password: Box<str>
 }
 
 #[derive(Deserialize, ToSchema)]
@@ -32,12 +31,4 @@ pub struct UpdateUser {
     pub password: Option<String>,
     pub role: Option<Role>
 }
-
-impl CreateUser {
-    
-    pub fn check_password(&self) -> bool {
-        self.password == self.confirm_password
-    }
-}
-
 

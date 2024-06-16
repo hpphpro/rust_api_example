@@ -33,13 +33,6 @@ where Conn: ConnectionTrait + Send + Sync
 
     pub async fn create(&self, mut data: CreateUser, hasher: &Argon2Hasher) -> Result<User, AppError> {
 
-        
-        if !data.check_password() {
-            return Err(AppError::BadRequestError(
-                AppErrorMessage { message: "Passwords mismatch".into(), details: None})
-            );
-        }
-
         data.password = hasher.hash_password(&data.password)?.into_boxed_str();
         
         let exists = self.reader.get_by_login(data.login.to_string()).await?;
