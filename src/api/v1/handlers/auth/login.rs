@@ -55,8 +55,9 @@ pub async fn login_handler(
             )
             .path("/")
             .max_age(time::Duration::seconds(exp as i64))
-            .same_site(SameSite::Strict)
+            .same_site(SameSite::Lax)
             .http_only(true)
+            .secure(true)
             .build();
 
         let mut response = (StatusCode::OK, Json(access)).into_response();

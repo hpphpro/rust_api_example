@@ -7,7 +7,11 @@ use axum_extra::extract::CookieJar;
 use crate::{
     api::v1::{
         dependencies::AppState, 
-        handlers::auth::{login::login_handler, logout::logout_handler, refresh::refresh_handler}
+        handlers::auth::{
+            login::login_handler, 
+            logout::logout_handler, 
+            refresh::refresh_handler
+        }
     }, common::structs::requests::user::LoginUser, 
 };
 
